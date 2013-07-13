@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item
+	    android:id="@+id/options"
+	    android:title="Options"
+	    android:showAsAction="always"
+	    android:icon="@drawable/ic_launcher"
+	    android:menuCategory="system"
+	    android:orderInCategory="1"
+	    />
+	<item 
+	    android:id="@+id/sendmessage"
+	    android:title="Send Message"
+	    android:icon="@drawable/menu_send_message"
+	    android:showAsAction="always"
+	    android:menuCategory="system"
+	    android:orderInCategory="0"
+	    />
+</menu>
