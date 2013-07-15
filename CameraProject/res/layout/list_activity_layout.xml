@@ -9,29 +9,4 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"	   
 	    />
-	<Button 
-	    android:id="@+id/addfriend"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
-	    android:text="Add Friend"
-	    android:onClick="addFriend"
-	    />
-	<Button 
-	    android:id="@+id/newrequest"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
-	    android:text="Send a request"
-	    android:onClick="sendRequest"
-	    />
-	
-	<Button 
-	    android:id="@+id/logout"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
-	    android:text="Logout"
-	    android:onClick="logOut"
-	    />
 </LinearLayout>

@@ -43,6 +43,9 @@ public class PreviewActivity extends Activity
 		options.inSampleSize = 8;
 		Bitmap b = BitmapFactory.decodeFile(f.getAbsolutePath(), options);
 		
+		// For some reason the picture is always taken in landscape mode during testing.  
+		// This checks if  the picture is in landscape and rotates accordingly, but it 
+		// skews the picture. I have rework this.
 		if(b.getWidth() > b.getHeight())
 		{
 			Runtime.getRuntime().freeMemory();

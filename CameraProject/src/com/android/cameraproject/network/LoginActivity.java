@@ -19,19 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity
-{
-	// Intent flag to confirm credentials
-	public static final String PARAM_CONFIRM_CREDENTIALS = "confirmCredentials";
-	
-	// The Intent extra to store password
-	public static final String PARAM_PASSWORD = "password";
-	
-	//The Intent extra to store username
-	public static final String PARAM_USERNAME = "username";
-	
-	// The Intent extra to store authtoken
-	public static final String PARAM_AUTHTOKEN_TYPE = "authtokenType";
-	
+{	
 	// The tag used to log to adb console
 	public static final String TAG = "LoginActivity";
 	
@@ -148,6 +136,7 @@ public class LoginActivity extends Activity
 					{
 						Intent i = new Intent(LoginActivity.this, MainMenuActivity.class);
 						startActivity(i);
+						finish();
 					}
 					else
 					{
@@ -173,6 +162,7 @@ public class LoginActivity extends Activity
 					{
 						Intent i = new Intent(LoginActivity.this, MainMenuActivity.class);
 						startActivity(i);
+						finish();
 					}
 					else
 					{

@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="17" 
         />
     
@@ -71,7 +71,7 @@
             android:name="com.android.cameraproject.network.MainMenuActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo">
+            android:theme="@style/Theme.MainMenuTheme">
             
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -69,26 +70,6 @@ public class MainMenuActivity extends ListActivity
 		this.startService(new Intent(this, SyncService.class));
 		adapter = new PopulateListViewTask().doInBackground(this);
 		setListAdapter(adapter);
-	}
-	
-	public void addFriend(View v)
-	{
-		Intent i = new Intent(this, AddFriendActivity.class);
-		startActivity(i);
-	}
-	
-	public void sendRequest(View v)
-	{
-		Intent i = new Intent(this, SendActivity.class);
-		startActivity(i);
-	}
-	
-	public void logOut(View v)
-	{
-		this.stopService(new Intent(this, SyncService.class));
-		ParseUser.logOut();
-		Intent i = new Intent(this, LoginActivity.class);
-		startActivity(i);
 	}
 	
 	protected void onListItemClick(ListView l, View v, int position, long id)
@@ -159,7 +140,31 @@ public class MainMenuActivity extends ListActivity
 	{
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.overlay, menu);
-		return true;
+		
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			case R.id.sendmessage:
+				Intent i = new Intent(this, SendActivity.class);
+				startActivity(i); break;
+			case R.id.logout:
+				this.stopService(new Intent(this, SyncService.class));
+				ParseUser.logOut();
+				i = new Intent(this, LoginActivity.class);
+				startActivity(i);
+				finish();
+				break;
+			case R.id.addfriend:
+				i = new Intent(this, AddFriendActivity.class);
+				startActivity(i);
+				
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 	
 	// Used in SyncService to refresh the ListView
