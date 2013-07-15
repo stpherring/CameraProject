@@ -54,21 +54,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 			mCamera.stopPreview();
 		}
 		catch(Exception e)
-		{}
-		
-		// Here's some stuff to deal with that pesky rotating business
-		
-		/*
-		 
-		Context context = this.getContext();
-		Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-		
-		if(display.getRotation() == Surface.ROTATION_0)
 		{
-			mCamera.setDisplayOrientation(90);
+			
 		}
-		
-		*/
 		
 		
 		// Start preview
