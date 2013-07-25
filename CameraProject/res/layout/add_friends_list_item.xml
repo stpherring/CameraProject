@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_friend_list_item_text_view"
+    android:textColor="#000000"
+    android:textStyle="bold"
+    android:textSize="18sp"
+    android:paddingLeft="15dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:layout_width="fill_parent"
+    android:gravity="left|center_vertical"
+    android:layout_height="fill_parent"/>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	   	<item
+	    android:id="@+id/addfriend"
+	    android:title="Add Friend"
+	    android:showAsAction="always"
+	    android:icon="@drawable/accept_drawable"
+	    android:menuCategory="system"
+	    android:orderInCategory="0"
+	    />
+	   	
+</menu>

@@ -86,7 +86,7 @@ public class LoginActivity extends Activity
 					mImageView.startAnimation(down);
 					
 					mTextView.setText("Don't have an account? Touch here");
-					mButton.setText("// Log In");
+					mButton.setText("Log In");
 
 				}
 

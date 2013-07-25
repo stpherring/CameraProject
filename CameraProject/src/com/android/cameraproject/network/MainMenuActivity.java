@@ -233,7 +233,7 @@ public class MainMenuActivity extends ListActivity
 			case R.id.logout:
 				new AlertDialog.Builder(this)
 				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setTitle("// Log Out")
+				.setTitle("Log Out")
 				.setMessage("Are you sure you want to log out?")
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() 
 				{

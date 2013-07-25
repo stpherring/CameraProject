@@ -18,6 +18,7 @@ import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -100,10 +101,10 @@ public class CameraActivity extends Activity
 		flashCheckBox = (CheckBox) findViewById(R.id.flash);
 		 
 		CameraInfo info = new CameraInfo();
-		Camera.getCameraInfo(CameraInfo.CAMERA_FACING_FRONT, info);
+		Camera.getCameraInfo(CameraInfo.CAMERA_FACING_BACK, info);
 		
 		
-		// Log.d(TAG, info.orientation + " degrees");
+		 Log.d("TAG", info.orientation + " degrees");
 		
 		int rotation = (360 - info.orientation) % 360;
 		
