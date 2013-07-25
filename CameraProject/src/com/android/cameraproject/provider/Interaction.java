@@ -34,5 +34,11 @@ public class Interaction
 		// The path of the image in the interaction (if applicable)
 		public static final String IMAGEPATH = "imagepath";
 		
+		// Whether or not the user has clicked on the notification
+		public static final String HASCLICKED = "hasclicked";
+		
+		// Whether or not the user has done anything with the notification (sent a picture, for example)
+		public static final String HASACTED = "hasacted";
+		
 	}
 }

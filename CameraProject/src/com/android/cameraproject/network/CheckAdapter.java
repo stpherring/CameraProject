@@ -16,6 +16,8 @@ import android.widget.TextView;
 // List adapter for SendActivity
 public class CheckAdapter extends ArrayAdapter<CheckableItem>
 {
+	// private static final String TAG = "CheckAdapter";
+	
 	private Context context;
 	private int layoutResourceId;
 	private List<CheckableItem> items;
@@ -27,6 +29,7 @@ public class CheckAdapter extends ArrayAdapter<CheckableItem>
 		this.context = context;
 		layoutResourceId = textViewResourceId;
 		items = objects;
+		// Log.d(TAG, items.get(items.size()-1).getUsername() + "");
 	}
 	
 	public List<CheckableItem> getItems()
@@ -46,14 +49,22 @@ public class CheckAdapter extends ArrayAdapter<CheckableItem>
 			row = inflater.inflate(layoutResourceId, parent, false);
 			holder.name = (TextView)row.findViewById(R.id.friendName);
 			holder.box = (CheckBox)row.findViewById(R.id.isSelected);
+			
+			final CheckableItem item = items.get(position);
+			
 			holder.box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 				
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) 
 				{
-					CheckableItem item = (CheckableItem)holder.box.getTag();
 					
-					item.setChecked(buttonView.isChecked());
+					// Log.d(TAG, item.getUsername() + "");
+					
+					item.setChecked(isChecked);
+					
+					// Log.d(TAG, item.isChecked() + "");
+					
+					holder.box.setTag(item);
 				}
 			});
 			row.setTag(holder);

@@ -15,12 +15,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.util.Log;
 
 public class InteractionContentProvider extends ContentProvider
 {
 
-	private static final String TAG = "InteractionContentProvider";
+	// private static final String TAG = "InteractionContentProvider";
 	
 	private static final String DATABASE_NAME = "interactions.db";
 	
@@ -52,12 +51,13 @@ public class InteractionContentProvider extends ContentProvider
 					+ Interactions.FROMUSER + " VARCHAR(255), " + Interactions.TOUSER
 					+ " VARCHAR(255), " + Interactions.TYPE + " VARCHAR(255), " 
 					+ Interactions.MESSAGE + " VARCHAR(255), " + Interactions.DATE
-					+ " VARCHAR(255), " + Interactions.IMAGEPATH + " VARCHAR(255) );");
+					+ " VARCHAR(255), " + Interactions.IMAGEPATH + " VARCHAR(255), "
+					+ Interactions.HASCLICKED + " INTEGER, " + Interactions.HASACTED + " INTEGER );");
 		}
 		
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 		{
-			Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
+			// Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
 			db.execSQL("DROP TABLE IF EXISTS " + INTERACTIONS_TABLE_NAME);
 			onCreate(db);
 		}
@@ -78,7 +78,7 @@ public class InteractionContentProvider extends ContentProvider
 				where = where + "_id = " + uri.getLastPathSegment();
 				break;
 			default:
-				Log.e(TAG, "Unknown URI " + uri);
+				// Log.e(TAG, "Unknown URI " + uri);
 				throw new IllegalArgumentException();
 		}
 		
@@ -95,7 +95,7 @@ public class InteractionContentProvider extends ContentProvider
 			case INTERACTIONS:
 				return Interactions.CONTENT_TYPE;
 			default:
-				Log.e(TAG, "Unknown URI " + uri);
+				// Log.e(TAG, "Unknown URI " + uri);
 				throw new IllegalArgumentException();
 		}
 	}
@@ -105,7 +105,7 @@ public class InteractionContentProvider extends ContentProvider
 	{
 		if(sUriMatcher.match(uri) != INTERACTIONS)
 		{
-			Log.e(TAG, "Unknown URI " + uri);
+			// Log.e(TAG, "Unknown URI " + uri);
 			throw new IllegalArgumentException();
 		}
 		
@@ -182,6 +182,7 @@ public class InteractionContentProvider extends ContentProvider
 		}
 		
 		getContext().getContentResolver().notifyChange(uri, null);
+		// Log.d(TAG, count + "");
 		return count;
 	}
 	
@@ -199,6 +200,8 @@ public class InteractionContentProvider extends ContentProvider
 		interactionsProjectionMap.put(Interactions.MESSAGE, Interactions.MESSAGE);
 		interactionsProjectionMap.put(Interactions.DATE, Interactions.DATE);
 		interactionsProjectionMap.put(Interactions.IMAGEPATH, Interactions.IMAGEPATH);
+		interactionsProjectionMap.put(Interactions.HASCLICKED, Interactions.HASCLICKED);
+		interactionsProjectionMap.put(Interactions.HASACTED, Interactions.HASACTED);
 	}
 
 }

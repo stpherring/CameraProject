@@ -2,24 +2,40 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:clickable="true">
     
     <ImageView 
         android:id="@+id/picturepreview"
         android:layout_width="fill_parent"
         android:layout_height = "fill_parent"
         android:contentDescription="@id/picturepreview"
-	    android:scaleType="fitXY"
+	    android:scaleType="centerCrop"
 	    android:adjustViewBounds="false"
+	    android:clickable="false"
         />
     
     <Button
         android:id="@+id/acceptpicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accept"
-        android:layout_gravity="bottom"
-        android:onClick="accept"
+        android:layout_gravity="bottom|left"
+        android:background="@drawable/preview_accept_selector"
+        android:layout_margin="30dp"
+        android:alpha=".7"
+        android:clickable="true"
         />
+    
+    <Button 
+        android:id="@+id/rejectpicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:background="@drawable/preview_reject_selector"
+        android:layout_margin="30dp"
+        android:alpha=".7"
+        android:clickable="true"
+        />"
+
 
 </FrameLayout>

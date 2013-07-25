@@ -2,21 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#FFFFFF" >
     
-    <EditText 
-        android:id="@+id/friend_username_entry"
+    <FrameLayout 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="Friend Username"
-        />
-    <Button
-        android:id="@+id/add_friend_button"
-        android:text="Add Friend"
-        android:layout_width="wrap_content"
+        android:background="#FFA07A"
+        >
+        
+	    <EditText 
+	        android:id="@+id/friend_username_entry"
+	        android:textSize="18sp"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:inputType="text"
+	        android:hint="Friend Username"
+	        android:background="@drawable/rounded_edittext"
+	        android:layout_margin="10dp"
+	        android:padding="5dp"
+	        android:textColor="#000000"
+	        />
+	</FrameLayout>
+	<ListView 
+		android:id="@android:id/list"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="addFriend"
-        />"
-
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1px"
+	    />
 </LinearLayout>

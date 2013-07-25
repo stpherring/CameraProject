@@ -8,17 +8,23 @@ public class ListItem
 	private String message;
 	private String date;
 	private String imagepath;
+	private int hasClicked;
+	private int objectId;
 	
-	private boolean hasClicked;
+	// This variable determines whether or not the user has done anything with the 
+	private int hasActed;
 
-	public ListItem(String from, String type, String message, String date, String imagepath) 
+	public ListItem(String from, String type, String message, String date, String imagepath, int hasClicked, int objectId, int hasActed) 
 	{
 		this.from = from;
 		this.type = type;
 		this.message = message;
 		this.date = date;
 		this.imagepath = imagepath;
-		hasClicked = false;
+		this.hasClicked = hasClicked;
+		this.objectId = objectId;
+		this.hasActed = hasActed;
+		
 	}
 	
 	public String getFrom()
@@ -46,14 +52,34 @@ public class ListItem
 		return imagepath;
 	}
 	
-	public boolean hasClicked()
+	public int getId()
+	{
+		return objectId;
+	}
+	
+	public int hasClicked()
 	{
 		return hasClicked;
 	}
 	
-	public void setClicked(boolean hasClicked)
+	public int hasActed()
+	{
+		return hasActed;
+	}
+	
+	public void setClicked(int hasClicked)
 	{
 		this.hasClicked = hasClicked;
+	}
+	
+	public void setActed(int hasActed)
+	{
+		this.hasActed = hasActed;
+	}
+	
+	public void setType(String type)
+	{
+		this.type = type;
 	}
 
 }

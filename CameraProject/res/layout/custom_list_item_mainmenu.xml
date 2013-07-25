@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+	android:paddingTop="8dp"
+	android:paddingBottom="8dp"
      >
    
     <ImageView
@@ -18,6 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/typedrawable"
         android:layout_alignParentTop="true"
+        android:textColor="#000000"
+        android:textSize="18sp"
         />
     
     <TextView 
@@ -27,6 +31,7 @@
         android:layout_below="@id/objectmessage"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/typedrawable"
+        android:textColor="#D3D3D3"
         />
 
 </RelativeLayout>

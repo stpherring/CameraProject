@@ -16,17 +16,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
  	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
- 	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
  	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.READ_CONTACTS" />
-	<uses-permission android:name="android.permission.WRITE_CONTACTS" />
-	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
 	<uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
 	<uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>"
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<uses-permission android:name="android.permission.VIBRATE" />
 
@@ -42,8 +36,6 @@
         <activity
             android:name="com.android.cameraproject.camera.CameraActivity"
             android:label="@string/app_name"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" 
             />
         
         
@@ -84,13 +76,25 @@
             android:name="com.android.cameraproject.network.SendActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/Theme.MainMenuTheme"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.cameraproject.network.MainMenuActivity"
+                />
+        </activity>
         
         <activity 
             android:name="com.android.cameraproject.network.AddFriendActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/Theme.MainMenuTheme"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.cameraproject.network.MainMenuActivity"
+                />
+        </activity>
         
         <activity 
             android:name="com.android.cameraproject.network.ResultActivity"

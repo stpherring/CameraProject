@@ -12,6 +12,7 @@ import java.util.TimerTask;
 
 import org.json.JSONArray;
 
+import com.android.cameraproject.R;
 import com.android.cameraproject.network.MainMenuActivity;
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -30,13 +31,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 public class SyncService extends Service
 {
 	private static ParseUser user;
 	
-	private static final String TAG = "SyncService";
+	// private static final String TAG = "SyncService";
 	
 	private NotificationManager mNM;
 	
@@ -45,6 +45,10 @@ public class SyncService extends Service
 	Timer t;
 	
 	private final Context context = this;
+	
+	private Intent intent;
+	
+	public static final String BROADCAST_ACTION = "com.android.cameraproject.displayevent";
 	
 	public class LocalBinder extends Binder
 	{
@@ -60,6 +64,7 @@ public class SyncService extends Service
 		
 		mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
+		intent = new Intent(BROADCAST_ACTION);
 	}
 	
 	public void onDestroy()
@@ -71,12 +76,12 @@ public class SyncService extends Service
 	
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		Log.i(TAG, "Received start id " + startId + ": " + intent);
+		// Log.i(TAG, "Received start id " + startId + ": " + intent);
 		
 		// If we have already called onStartCommand
 		if(t != null)
 		{
-			Log.d(TAG, "SyncService already started");
+			// Log.d(TAG, "SyncService already started");
 			return START_STICKY;
 		}
 		
@@ -135,12 +140,14 @@ public class SyncService extends Service
 			text = from + " has confirmed your friend request";
 		}
 		
-		Notification notification = new Notification(android.R.drawable.stat_notify_sync, text, System.currentTimeMillis());
+		Notification notification = new Notification(R.drawable.ic_notification, text, System.currentTimeMillis());
 	
 		Intent i = new Intent(this, MainMenuActivity.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, i, 0);
 		
 		notification.setLatestEventInfo(this, "CameraProject", text, contentIntent);
+		
+		notification.defaults = Notification.DEFAULT_ALL;
 		
 		mNM.notify(NOTIFICATION, notification);
 	}
@@ -151,7 +158,7 @@ public class SyncService extends Service
 		ParseQuery query = new ParseQuery("Interaction");
 		query.whereEqualTo("to", user.getUsername());
 		query.whereEqualTo("hasSynced", false);
-		query.orderByDescending("updatedAt");
+		query.orderByAscending("updatedAt");
 		
 		query.findInBackground(new FindCallback()
 		{
@@ -160,13 +167,13 @@ public class SyncService extends Service
 				// Set elements to be the list of elements retrieved from database
 				if(e == null)
 				{
-					Log.d(TAG, "Retrieved: " + toList.size() + " scores");
+					// Log.d(TAG, "Retrieved: " + toList.size() + " scores");
 					
 					// For every element in the list returned by the query
 					for(int i = 0; i < toList.size(); i++)
 					{	
 						ParseObject item = toList.get(i);
-						Log.d(TAG, "Item " + i + " " + item.getObjectId());
+						// Log.d(TAG, "Item " + i + " " + item.getObjectId());
 						
 						
 						ContentValues values = new ContentValues();
@@ -208,40 +215,34 @@ public class SyncService extends Service
 							
 							catch (ParseException e1)
 							{
-								Log.e(TAG, "ParseException: " + e1.getLocalizedMessage());
+								// Log.e(TAG, "ParseException: " + e1.getLocalizedMessage());
 							}
 							catch(FileNotFoundException e1)
 							{
-								Log.e(TAG, "FileNotFoundException: " + e1.getLocalizedMessage());
+								// Log.e(TAG, "FileNotFoundException: " + e1.getLocalizedMessage());
 							} 
 							catch (IOException e1) 
 							{
-								Log.e(TAG, "IOException: " + e1.getLocalizedMessage());
+								// Log.e(TAG, "IOException: " + e1.getLocalizedMessage());
 							}
 						}
 						
 						values.put("imagepath", imagepath);
+						values.put("hasclicked", 0);
+						values.put("hasacted", 0);
 						
 						if(type.equals("friendconfirmation"))
 						{
 							JSONArray array = user.getJSONArray("friends");
-							ParseUser friend = toList.get(i).getParseUser("from");
+							String friend = toList.get(i).getString("from");
 							try
 							{
-								friend = friend.fetchIfNeeded();
-							} 
-							catch (ParseException e1) 
-							{
-								Log.e(TAG, "ParseException: " + e1.getLocalizedMessage());
-							}
-							try
-							{
-								array.put(friend.getUsername());
+								array.put(friend);
 							}
 							catch(NullPointerException e1)
 							{
 								array = new JSONArray();
-								array.put(friend.getUsername());
+								array.put(friend);
 							}
 							user.put("friends", array);
 							user.saveInBackground();
@@ -249,11 +250,9 @@ public class SyncService extends Service
 						}
 						
 						showNotification(type, from);
+						sendBroadcast(intent);
 						
 						getContentResolver().insert(Interaction.Interactions.CONTENT_URI, values);
-						
-						// Refresh the ListView in MainMenuActivity
-						MainMenuActivity.notifyDataSetChanged();
 						
 						// Update the item we retrieved so we don't have to get it again
 						ParseObject updatedItem = toList.get(i);
@@ -264,7 +263,7 @@ public class SyncService extends Service
 				}
 				else
 				{
-					Log.d(TAG, "Error: " + e.getMessage());
+					// Log.d(TAG, "Error: " + e.getMessage());
 				}
 			}
 

@@ -3,9 +3,8 @@ package com.android.cameraproject.network;
 import java.util.List;
 
 import com.android.cameraproject.R;
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +20,22 @@ public class MainMenuAdapter extends ArrayAdapter<ListItem>
 	
 	private static List<ListItem> items;
 	
-	private static final String TAG = "MainMenuAdapter";
+//	private static final String TAG = "MainMenuAdapter";
 	
+	// In this constructor, items returns all the objects from a query to the content
+	// provider.  Because of the way things are ordered in it, the list has to be reversed
+	// before being stored in the adapter.
 	public MainMenuAdapter(Context context, List<ListItem> items)
 	{
 		
 		super(context, layoutResourceId, items);
 
+		for(int i = 0; i < items.size()/2; i++)
+		{
+			ListItem temp = items.get(i);
+			items.set(i, items.get(items.size()-i-1));
+			items.set(items.size()-i-1, temp);
+		}
 		MainMenuAdapter.items = items;
 		
 		MainMenuAdapter.context = context;
@@ -44,7 +52,7 @@ public class MainMenuAdapter extends ArrayAdapter<ListItem>
 		View row = convertView;
 		final ItemHolder holder = new ItemHolder();
 		
-		LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+		LayoutInflater inflater = LayoutInflater.from(context);
 		row = inflater.inflate(layoutResourceId, parent, false);
 			
 		holder.date = (TextView)row.findViewById(R.id.datetext);
@@ -56,36 +64,50 @@ public class MainMenuAdapter extends ArrayAdapter<ListItem>
 		ListItem item = items.get(position);
 		
 		String type = item.getType();
-		Log.d(TAG, type);
+		// Log.d(TAG, type);
 		
 		String from = item.getFrom();
 		
 		if(type.equals("friendconfirmation"))
 		{
-			holder.message.setText(from + " has accepted your friend request");
+			holder.message.setText(from + " accepted your friend request");
+			
+			holder.drawable.setImageDrawable(context.getResources().getDrawable(R.drawable.friend_confirmation));
 		}
 		if(type.equals("friendrequest"))
 		{
-			holder.message.setText(from + " wants to be your friend");	
+			holder.message.setText(from + " wants to be your friend");
+			holder.drawable.setImageDrawable(context.getResources().getDrawable(R.drawable.friend_request));
 		}
 		if(type.equals("stringrequest"))
 		{
 			String message = item.getMessage();
 			
 			holder.message.setText(from + ": " + message);	
+			
+			holder.drawable.setImageDrawable(context.getResources().getDrawable(R.drawable.message_request));
 		}
 		if(type.equals("result"))
 		{
-			holder.message.setText(from + " has replied");	
+			holder.message.setText(from + " replied to your message");	
+		
+			holder.drawable.setImageDrawable(context.getResources().getDrawable(R.drawable.arrow_result));
 		}
 		
 		String date = item.getDate();
 		
 		holder.date.setText(date);
 		
-		Log.d(TAG, date);
+		if(item.hasClicked() == 0)
+		{
+			holder.message.setTypeface(null, Typeface.BOLD);
+		}
+		else
+		{
+			holder.message.setTypeface(null, Typeface.NORMAL);
+		}
 		
-		holder.drawable.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_launcher));
+		// Log.d(TAG, date);
 		
 		return row;
 		
